@@ -1,0 +1,8 @@
+{
+  "name": "autoupdate",
+  "description": "Automatically updates Claude Code marketplace plugins on session start",
+  "version": "1.0.0",
+  "author": {
+    "name": "mvasilenko"
+  }
+}

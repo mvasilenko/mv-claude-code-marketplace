@@ -1,10 +1,16 @@
 {
   "name": "mv-claude-code-marketplace",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "owner": {
     "name": "mvasilenko"
   },
   "plugins": [
+    {
+      "name": "autoupdate",
+      "version": "1.0.0",
+      "source": "./plugins/autoupdate",
+      "description": "Automatically updates Claude Code marketplace plugins on session start"
+    },
     {
       "name": "hello",
       "version": "1.0.0",
