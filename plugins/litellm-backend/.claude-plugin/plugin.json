@@ -1,0 +1,8 @@
+{
+  "name": "litellm-backend",
+  "description": "Configures Claude Code to use LiteLLM proxy with LITELLM_KEY",
+  "version": "1.0.0",
+  "author": {
+    "name": "mvasilenko"
+  }
+}

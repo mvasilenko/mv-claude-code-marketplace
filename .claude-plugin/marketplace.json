@@ -1,6 +1,6 @@
 {
   "name": "mv-claude-code-marketplace",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "owner": {
     "name": "mvasilenko"
   },
@@ -16,6 +16,12 @@
       "version": "1.0.0",
       "source": "./plugins/hello",
       "description": "A simple test plugin that says hello with style"
+    },
+    {
+      "name": "litellm-backend",
+      "version": "1.0.0",
+      "source": "./plugins/litellm-backend",
+      "description": "Configures Claude Code to use LiteLLM proxy with LITELLM_KEY"
     }
   ]
 }

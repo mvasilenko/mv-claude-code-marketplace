@@ -1,0 +1,15 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "if [ -n \"$LITELLM_KEY\" ]; then SETTINGS=\"${CLAUDE_CONFIG_DIR:-$HOME/.claude}/settings.json\"; if [ -f \"$SETTINGS\" ] && command -v jq >/dev/null 2>&1; then jq --arg key \"$LITELLM_KEY\" '.env.ANTHROPIC_AUTH_TOKEN = $key' \"$SETTINGS\" > \"$SETTINGS.tmp\" && mv \"$SETTINGS.tmp\" \"$SETTINGS\"; fi; fi"
+          }
+        ]
+      }
+    ]
+  }
+}
