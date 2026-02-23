@@ -37,6 +37,7 @@ type CLI struct {
 	Init        InitCmd        `cmd:"" help:"Initialize Claude settings with base configuration."`
 	Install     InstallCmd     `cmd:"" help:"Install required tools (Claude Code CLI, GitHub CLI)."`
 	Marketplace MarketplaceCmd `cmd:"" help:"Manage marketplaces."`
+	Update      UpdateCmd      `cmd:"" help:"Update marketplace plugins and settings."`
 	Version     VersionCmd     `cmd:"" help:"Show version information."`
 }
 
