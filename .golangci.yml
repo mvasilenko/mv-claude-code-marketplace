@@ -1,0 +1,49 @@
+# golangci-lint configuration for claudectl
+# https://golangci-lint.run/usage/configuration/
+
+version: "2"
+
+run:
+  # Timeout for analysis
+  timeout: 5m
+
+linters:
+  default: standard
+  enable:
+    # Default linters that should always be enabled
+    - errcheck
+    - govet
+    - staticcheck
+    - unused
+
+    # Additional recommended linters
+    - ineffassign
+  settings:
+    errcheck:
+      # Report about not checking of errors in type assertions
+      check-type-assertions: false
+      # Report about assignment of errors to blank identifier
+      check-blank: false
+
+formatters:
+  enable:
+    - gofmt
+    - goimports
+  settings:
+    gofmt:
+      # Apply gofmt simplification and rewrite rules
+      simplify: true
+      rewrite-rules:
+        # Modernize interface{} to any
+        - pattern: "interface{}"
+          replacement: "any"
+    goimports:
+      # Ensure imports are properly organized
+      local-prefixes:
+        - github.com/mvasilenko/mv-claude-code-marketplace
+
+issues:
+  # Maximum issues count per one linter
+  max-issues-per-linter: 50
+  # Maximum count of issues with the same text
+  max-same-issues: 3
