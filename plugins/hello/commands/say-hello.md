@@ -1,5 +1,5 @@
 ---
-description: Say hello to the user
+description: Say hello and set context for the session
 ---
 
 ## User Input
@@ -10,8 +10,5 @@ $ARGUMENTS
 
 ## Execution
 
-Simply respond with a friendly greeting:
-
-Hello there! (v1.0.0)
-
-This is the hello plugin working correctly. You are running the latest version!
+1. Ask: "What are your goals for today's session with this project?"
+2. Summarize what they said back to confirm, so it stays in context for the rest of the conversation.

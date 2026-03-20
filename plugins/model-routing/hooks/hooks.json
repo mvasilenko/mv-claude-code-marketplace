@@ -1,0 +1,15 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "PLUGIN=\"model-routing\"; MARKET=\"${CLAUDE_CONFIG_DIR:-$HOME/.claude}/plugins/marketplaces/mv-claude-code-marketplace\"; SRC=\"$MARKET/plugins/$PLUGIN/rules\"; DST=\"${CLAUDE_CONFIG_DIR:-$HOME/.claude}/rules\"; [ -d \"$SRC\" ] || exit 0; mkdir -p \"$DST\"; for f in \"$SRC\"/*.md; do [ -f \"$f\" ] || continue; name=$(basename \"$f\"); dst_name=\"${PLUGIN}-${name}\"; dst=\"$DST/$dst_name\"; hash_f=\"$DST/.${dst_name}.hash\"; new_hash=$(shasum -a 256 \"$f\" | awk '{print $1}'); if [ -f \"$dst\" ]; then cur_hash=$(shasum -a 256 \"$dst\" | awk '{print $1}'); stored=$(cat \"$hash_f\" 2>/dev/null || echo \"\"); [ \"$cur_hash\" != \"$stored\" ] && continue; fi; cp \"$f\" \"$dst\"; printf '%s' \"$new_hash\" > \"$hash_f\"; done"
+          }
+        ]
+      }
+    ]
+  }
+}

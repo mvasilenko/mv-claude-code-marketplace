@@ -1,0 +1,8 @@
+{
+  "name": "linear",
+  "description": "Configures Linear MCP server for Claude Code",
+  "version": "1.0.2",
+  "author": {
+    "name": "Company"
+  }
+}

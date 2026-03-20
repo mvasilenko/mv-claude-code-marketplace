@@ -1,9 +1,0 @@
-{
-  "env": {
-    "ANTHROPIC_BASE_URL": "https://litellm.example.com/"
-  },
-  "permissions": {
-    "allow": [],
-    "deny": []
-  }
-}

@@ -1,26 +1,57 @@
 {
   "name": "mv-claude-code-marketplace",
+  "description": "Company Claude Code plugins",
   "owner": {
-    "name": "mvasilenko"
+    "name": "Company"
   },
   "plugins": [
     {
-      "name": "autoupdate",
-      "version": "1.0.0",
-      "source": "./plugins/autoupdate",
-      "description": "Automatically updates Claude Code marketplace plugins on session start"
+      "name": "rules-management",
+      "description": "Distributes and auto-syncs Claude Code rules to ~/.claude/rules/",
+      "source": "./plugins/rules-management",
+      "category": "utility"
     },
     {
       "name": "hello",
-      "version": "1.1.0",
+      "description": "Simple test plugin saying hello",
       "source": "./plugins/hello",
-      "description": "A simple test plugin that says hello with style"
+      "category": "utility"
     },
     {
       "name": "litellm-backend",
-      "version": "1.0.0",
+      "description": "Configures Claude Code to use LiteLLM proxy with LITELLM_KEY",
       "source": "./plugins/litellm-backend",
-      "description": "Configures Claude Code to use LiteLLM proxy with LITELLM_KEY"
+      "category": "utility"
+    },
+    {
+      "name": "model-routing",
+      "description": "Enforces cost-effective model routing for subagent tasks",
+      "source": "./plugins/model-routing",
+      "category": "utility"
+    },
+    {
+      "name": "notion",
+      "description": "Configures Notion MCP server for Claude Code",
+      "source": "./plugins/notion",
+      "category": "integration"
+    },
+    {
+      "name": "linear",
+      "description": "Configures Linear MCP server for Claude Code",
+      "source": "./plugins/linear",
+      "category": "integration"
+    },
+    {
+      "name": "model-display",
+      "description": "Shows current Claude model in session announcement and statusline",
+      "source": "./plugins/model-display",
+      "category": "utility"
+    },
+    {
+      "name": "programming-skills",
+      "description": "Programming language skill guidelines for Go and future languages",
+      "source": "./plugins/programming-skills",
+      "category": "programming"
     }
   ]
 }

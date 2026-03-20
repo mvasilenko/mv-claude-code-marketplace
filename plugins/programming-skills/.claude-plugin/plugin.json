@@ -1,0 +1,8 @@
+{
+  "name": "programming-skills",
+  "description": "Programming language skill guidelines for Go and future languages",
+  "version": "1.0.0",
+  "author": {
+    "name": "Company"
+  }
+}

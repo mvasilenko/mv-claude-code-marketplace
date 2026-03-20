@@ -1,0 +1,8 @@
+{
+  "name": "model-routing",
+  "description": "Enforces cost-effective model routing for subagent tasks",
+  "version": "1.0.5",
+  "author": {
+    "name": "Company"
+  }
+}

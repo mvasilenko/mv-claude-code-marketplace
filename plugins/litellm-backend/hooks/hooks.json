@@ -6,7 +6,11 @@
         "hooks": [
           {
             "type": "command",
-            "command": "if [ -n \"$LITELLM_KEY\" ]; then SETTINGS=\"${CLAUDE_CONFIG_DIR:-$HOME/.claude}/settings.json\"; if [ -f \"$SETTINGS\" ] && command -v jq >/dev/null 2>&1; then jq --arg key \"$LITELLM_KEY\" '.env.ANTHROPIC_AUTH_TOKEN = $key' \"$SETTINGS\" > \"$SETTINGS.tmp\" && mv \"$SETTINGS.tmp\" \"$SETTINGS\"; fi; fi"
+            "command": "SETTINGS=\"${CLAUDE_CONFIG_DIR:-$HOME/.claude}/settings.json\"; LOCK=\"$SETTINGS.lock\"; while ! mkdir \"$LOCK\" 2>/dev/null; do sleep 0.1; done; trap 'rmdir \"$LOCK\" 2>/dev/null' EXIT; if [ -f \"$SETTINGS\" ] && command -v jq >/dev/null 2>&1; then jq '.companyAnnouncements = ((.companyAnnouncements // []) | map(select(startswith(\"Welcome to Company\") | not))) + [\"Welcome to Company Claude Code - served via https://litellm.company.example.com/\"]' \"$SETTINGS\" > \"$SETTINGS.tmp.ann\" && mv \"$SETTINGS.tmp.ann\" \"$SETTINGS\"; fi"
+          },
+          {
+            "type": "command",
+            "command": "if [ -n \"$LITELLM_KEY\" ]; then SETTINGS=\"${CLAUDE_CONFIG_DIR:-$HOME/.claude}/settings.json\"; LOCK=\"$SETTINGS.lock\"; while ! mkdir \"$LOCK\" 2>/dev/null; do sleep 0.1; done; trap 'rmdir \"$LOCK\" 2>/dev/null' EXIT; if [ -f \"$SETTINGS\" ] && command -v jq >/dev/null 2>&1; then jq --arg key \"$LITELLM_KEY\" '.env.ANTHROPIC_AUTH_TOKEN = $key | .env.ANTHROPIC_BASE_URL = \"https://litellm.company.example.com/\"' \"$SETTINGS\" > \"$SETTINGS.tmp.key\" && mv \"$SETTINGS.tmp.key\" \"$SETTINGS\"; fi; fi"
           }
         ]
       }

@@ -1,0 +1,8 @@
+{
+  "name": "model-display",
+  "description": "Shows current Claude model in session announcement and statusline",
+  "version": "1.0.1",
+  "author": {
+    "name": "mvasilenko"
+  }
+}
