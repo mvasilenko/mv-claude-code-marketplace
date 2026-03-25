@@ -100,6 +100,16 @@ clean_litellm_settings() {
   fi
 }
 
+configure_settings() {
+  local settings="$CLAUDE_DIR/settings.json"
+  if [ ! -f "$settings" ]; then
+    echo "{}" > "$settings"
+  fi
+  jq '.env.CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC = "1"' \
+    "$settings" > "$settings.tmp" && mv "$settings.tmp" "$settings"
+  echo "Configured settings.json with base env vars."
+}
+
 setup_shell_aliases() {
   local profile
   case "${SHELL:-}" in
