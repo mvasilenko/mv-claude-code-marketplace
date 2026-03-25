@@ -20,6 +20,7 @@ install_or_update_plugin "superpowers@$SUPERPOWERS_MARKETPLACE"
 
 enable_auto_update
 verify_litellm_proxy
+configure_settings
 setup_shell_aliases
 
 echo ""
