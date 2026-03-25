@@ -1,6 +1,5 @@
 INSTRUCTION: BRANCH NAMING
 
-- Bros/bro-team task (Linear ticket): `bro-123-ticket-name`
 - Version bump / maintenance / config: `chore/project-name-description`
 - New feature: `feat/project-name-description`
 - Bug fix: `fix/project-name-description`
