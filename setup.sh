@@ -19,6 +19,7 @@ install_or_update_plugin "superpowers@$SUPERPOWERS_MARKETPLACE"
 
 enable_auto_update
 clean_litellm_settings
+configure_settings
 setup_shell_aliases
 
 echo ""
