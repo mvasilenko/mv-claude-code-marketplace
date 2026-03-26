@@ -6,7 +6,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "SETTINGS=\"${CLAUDE_CONFIG_DIR:-$HOME/.claude}/settings.json\"; LOCK=\"$SETTINGS.lock\"; while ! mkdir \"$LOCK\" 2>/dev/null; do sleep 0.1; done; trap 'rmdir \"$LOCK\" 2>/dev/null' EXIT; if [ -f \"$SETTINGS\" ] && command -v jq >/dev/null 2>&1 && ! jq -e '.mcpServers.notion' \"$SETTINGS\" >/dev/null 2>&1; then jq '.mcpServers.notion = {\"type\": \"http\", \"url\": \"https://mcp.notion.com/mcp\"}' \"$SETTINGS\" > \"$SETTINGS.tmp.notion\" && mv \"$SETTINGS.tmp.notion\" \"$SETTINGS\"; fi"
+            "command": "\"${CLAUDE_CONFIG_DIR:-$HOME/.claude}/plugins/marketplaces/mv-claude-code-marketplace/plugins/notion/hooks/session-start.sh\""
           }
         ]
       }

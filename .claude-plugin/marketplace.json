@@ -52,6 +52,12 @@
       "description": "Programming language skill guidelines for Go and future languages",
       "source": "./plugins/programming-skills",
       "category": "programming"
+    },
+    {
+      "name": "usage-tracking",
+      "description": "Logs skill invocations (PreToolUse and PostToolUse) with user, pwd, and skill name",
+      "source": "./plugins/usage-tracking",
+      "category": "utility"
     }
   ]
 }

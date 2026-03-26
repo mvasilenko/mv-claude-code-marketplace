@@ -11,7 +11,7 @@ check_litellm_key
 backup_if_needed
 
 add_or_update_marketplace "$MARKETPLACE_NAME" "$MARKETPLACE_REPO"
-install_plugins rules-management hello litellm-backend model-routing model-display programming-skills
+install_plugins rules-management hello litellm-backend model-routing model-display programming-skills usage-tracking
 # Optional integrations (install manually if needed):
 # install_plugins notion linear
 
