@@ -2,8 +2,10 @@
 # Common functions for setup scripts. Set CLAUDE_DIR before sourcing this file.
 
 MARKETPLACE_NAME="mv-claude-code-marketplace"
+# shellcheck disable=SC2034  # used by sourcing scripts (setup.sh, setup-litellm.sh)
 MARKETPLACE_REPO="mvasilenko/mv-claude-code-marketplace"
 SUPERPOWERS_MARKETPLACE="claude-plugins-official"
+# shellcheck disable=SC2034  # used by sourcing scripts (setup.sh, setup-litellm.sh)
 SUPERPOWERS_REPO="anthropics/claude-plugins-official"
 
 check_prerequisites() {
@@ -27,7 +29,8 @@ backup_if_needed() {
         echo "Aborted."
         exit 0
       fi
-      local backup="$CLAUDE_DIR-backup-$(date +%Y%m%d-%H%M%S)"
+      local backup
+      backup="$CLAUDE_DIR-backup-$(date +%Y%m%d-%H%M%S)"
       echo "Backing up to $backup"
       cp -r "$CLAUDE_DIR" "$backup"
     fi
