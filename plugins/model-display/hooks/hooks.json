@@ -6,7 +6,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "SETTINGS=\"${CLAUDE_CONFIG_DIR:-$HOME/.claude}/settings.json\"; LOCK=\"$SETTINGS.lock\"; while ! mkdir \"$LOCK\" 2>/dev/null; do sleep 0.1; done; trap 'rmdir \"$LOCK\" 2>/dev/null' EXIT; if [ -f \"$SETTINGS\" ] && command -v jq >/dev/null 2>&1; then MODEL=$(jq -r '.model // \"sonnet-4-6 (auto)\"' \"$SETTINGS\"); STATUS_CMD='jq -r --arg prefix \"Model: \" --arg suffix \"  ? for shortcuts\" '\"'\"'$prefix + (.model.display_name // .model.id // empty) + $suffix'\"'\"' /dev/stdin 2>/dev/null || echo \"Model: sonnet-4-6  ? for shortcuts\"'; jq --arg m \"$MODEL\" --arg cmd \"$STATUS_CMD\" 'del(.statusCommand) | .companyAnnouncements = ((.companyAnnouncements // []) | map(select(startswith(\"Started with:\") | not))) + [\"Started with: \" + $m] | .statusLine = {\"type\": \"command\", \"command\": $cmd}' \"$SETTINGS\" > \"$SETTINGS.tmp.model\" && mv \"$SETTINGS.tmp.model\" \"$SETTINGS\"; fi"
+            "command": "\"${CLAUDE_CONFIG_DIR:-$HOME/.claude}/plugins/marketplaces/mv-claude-code-marketplace/plugins/model-display/hooks/session-start.sh\""
           }
         ]
       }

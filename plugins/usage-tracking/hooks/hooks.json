@@ -1,0 +1,26 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Skill",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"${CLAUDE_CONFIG_DIR:-$HOME/.claude}/plugins/marketplaces/mv-claude-code-marketplace/plugins/usage-tracking/hooks/pre-tool-use.sh\""
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Skill",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"${CLAUDE_CONFIG_DIR:-$HOME/.claude}/plugins/marketplaces/mv-claude-code-marketplace/plugins/usage-tracking/hooks/post-tool-use.sh\""
+          }
+        ]
+      }
+    ]
+  }
+}

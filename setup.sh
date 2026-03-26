@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+# shellcheck disable=SC2034  # used by functions in setup-lib.sh
 CLAUDE_DIR="${CLAUDE_CONFIG_DIR:-$HOME/.claude}"
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=setup-lib.sh
@@ -10,7 +11,7 @@ check_prerequisites
 backup_if_needed
 
 add_or_update_marketplace "$MARKETPLACE_NAME" "$MARKETPLACE_REPO"
-install_plugins rules-management hello model-routing model-display programming-skills
+install_plugins rules-management hello model-routing model-display programming-skills usage-tracking
 # Optional integrations (install manually if needed):
 # install_plugins notion linear litellm-backend
 
