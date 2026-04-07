@@ -3,17 +3,12 @@
   "lines": [
     [
       { "id": "1", "type": "model", "color": "cyan", "bold": true },
-      { "id": "2", "type": "separator" },
-      { "id": "3", "type": "session-name", "color": "yellow" },
-      { "id": "4", "type": "separator" },
       { "id": "5", "type": "git-branch", "color": "magenta" }
     ],
     [
       { "id": "6", "type": "context-bar", "color": "green" },
       { "id": "7", "type": "context-percentage", "color": "blue" },
-      { "id": "8", "type": "separator" },
       { "id": "9", "type": "session-usage", "color": "blue" },
-      { "id": "10", "type": "separator" },
       { "id": "11", "type": "weekly-usage", "color": "blue" }
     ],
     [
