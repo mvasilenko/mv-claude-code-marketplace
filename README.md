@@ -63,7 +63,6 @@ Install a plugin:
 | `hello` | Simple test plugin that greets the user | utility |
 | `litellm-backend` | Configures Claude Code to use the Company LiteLLM proxy — sets `ANTHROPIC_AUTH_TOKEN` from `LITELLM_KEY` and `ANTHROPIC_BASE_URL` to `https://litellm.company.example.com/` on session start. Requires `jq`. | utility |
 | `model-routing` | Enforces cost-effective model selection when spawning subagents | utility |
-| `model-display` | Shows current Claude model in session announcement and statusline | utility |
 | `linear` | Configures the Linear MCP server for Claude Code | integration |
 | `notion` | Configures the Notion MCP server for Claude Code | integration |
 | `programming-skills` | Programming language skill guidelines (Go) | programming |

@@ -42,12 +42,6 @@
       "category": "integration"
     },
     {
-      "name": "model-display",
-      "description": "Shows current Claude model in session announcement and statusline",
-      "source": "./plugins/model-display",
-      "category": "utility"
-    },
-    {
       "name": "programming-skills",
       "description": "Programming language skill guidelines for Go and future languages",
       "source": "./plugins/programming-skills",

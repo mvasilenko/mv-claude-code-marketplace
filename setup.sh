@@ -11,7 +11,7 @@ check_prerequisites
 backup_if_needed
 
 add_or_update_marketplace "$MARKETPLACE_NAME" "$MARKETPLACE_REPO"
-install_plugins rules-management hello model-routing model-display programming-skills usage-tracking
+install_plugins rules-management hello model-routing programming-skills usage-tracking
 # Optional integrations (install manually if needed):
 # install_plugins notion linear litellm-backend
 
@@ -21,6 +21,7 @@ install_or_update_plugin "superpowers@$SUPERPOWERS_MARKETPLACE"
 enable_auto_update
 clean_litellm_settings
 configure_settings
+install_ccstatusline
 setup_shell_aliases
 
 echo ""
