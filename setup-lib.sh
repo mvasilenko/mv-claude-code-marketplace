@@ -113,6 +113,26 @@ configure_settings() {
   echo "Configured settings.json with base env vars."
 }
 
+install_ccstatusline() {
+  # Seed ccstatusline widget config so the rich status line works on first run.
+  # Never overwrite an existing user config.
+  local target_dir="${XDG_CONFIG_HOME:-$HOME/.config}/ccstatusline"
+  local target="$target_dir/settings.json"
+  local source="$SCRIPT_DIR/plugins/model-display/ccstatusline-settings.json"
+
+  if [ -f "$target" ]; then
+    echo "ccstatusline config already exists at $target (leaving as is)."
+    return
+  fi
+  if [ ! -f "$source" ]; then
+    echo "WARNING: ccstatusline default config not found at $source; skipping seed."
+    return
+  fi
+  mkdir -p "$target_dir"
+  cp "$source" "$target"
+  echo "Seeded ccstatusline config at $target."
+}
+
 setup_shell_aliases() {
   local profile
   case "${SHELL:-}" in
