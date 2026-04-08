@@ -113,6 +113,36 @@ configure_settings() {
   echo "Configured settings.json with base env vars."
 }
 
+install_ccstatusline() {
+  # Seed the ccstatusline widget config so the rich status line works on first run.
+  # Never overwrite an existing user widget config.
+  local target_dir="${XDG_CONFIG_HOME:-$HOME/.config}/ccstatusline"
+  local target="$target_dir/settings.json"
+  local source="$SCRIPT_DIR/config/ccstatusline-settings.json"
+
+  if [ -f "$target" ]; then
+    echo "ccstatusline config already exists at $target (leaving as is)."
+  elif [ ! -f "$source" ]; then
+    echo "WARNING: ccstatusline default config not found at $source; skipping seed."
+  else
+    mkdir -p "$target_dir"
+    cp "$source" "$target"
+    echo "Seeded ccstatusline config at $target."
+  fi
+
+  # Wire Claude Code's settings.json to actually invoke ccstatusline.
+  # Without this, the seeded widget config is never read.
+  local settings="$CLAUDE_DIR/settings.json"
+  if [ ! -f "$settings" ]; then
+    echo "{}" > "$settings"
+  fi
+  jq '
+    .statusLine = {"type": "command", "command": "npx -y ccstatusline@latest"}
+    | del(.enabledPlugins["model-display@mv-claude-code-marketplace"])
+  ' "$settings" > "$settings.tmp" && mv "$settings.tmp" "$settings"
+  echo "Wired statusLine to ccstatusline in $settings."
+}
+
 setup_shell_aliases() {
   local profile
   case "${SHELL:-}" in
