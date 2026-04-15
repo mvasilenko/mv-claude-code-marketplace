@@ -3,6 +3,9 @@ set -euo pipefail
 
 MARKET="$(cd "$(dirname "$0")/../../.." && pwd)"
 
+# Pull latest marketplace updates silently
+git -C "$MARKET" pull --ff-only --quiet 2>/dev/null || true
+
 # Sync rules to ~/.claude/rules/
 "$MARKET/lib/sync-rules.sh" rules-management
 
