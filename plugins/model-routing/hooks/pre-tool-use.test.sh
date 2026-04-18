@@ -32,4 +32,7 @@ run_case explore-haiku.json 0
 run_case explore-sonnet.json 0
 run_case general-purpose-no-model.json 0
 
+# Fail-open on malformed input — documents intentional posture.
+run_case malformed-input.json 0
+
 exit "$FAIL"

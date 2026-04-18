@@ -8,6 +8,10 @@
 #   stdin   — JSON with .tool_name and .tool_input (from Claude Code).
 #   exit 0  — allow the tool call to proceed.
 #   exit 2  — deny the tool call; stderr is shown to the model.
+#
+# Fail-open on malformed input: if jq is missing or the JSON is unparseable,
+# SUBAGENT falls through to "" and the hook exits 0 (allow). This is
+# intentional — the hook is a cost-routing nudge, not a security gate.
 set -uo pipefail
 
 INPUT=$(cat)
