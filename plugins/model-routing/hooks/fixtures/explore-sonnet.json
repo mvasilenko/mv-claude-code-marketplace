@@ -1,0 +1,9 @@
+{
+  "tool_name": "Task",
+  "tool_input": {
+    "subagent_type": "Explore",
+    "model": "sonnet",
+    "description": "Explore with deferred tools",
+    "prompt": "Use WebFetch to read docs and summarize."
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "tool_name": "Task",
+  "tool_input": {
+    "subagent_type": "Explore",
+    "description": "List files in plugins dir",
+    "prompt": "List files in plugins/."
+  }
+}
