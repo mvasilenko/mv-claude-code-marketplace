@@ -1,7 +1,7 @@
 {
   "name": "rules-management",
   "description": "Distributes and auto-syncs Claude Code rules to ~/.claude/rules/",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "author": {
     "name": "Company"
   }
