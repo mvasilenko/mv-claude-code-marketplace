@@ -4,6 +4,7 @@ Step 1 - EVALUATE (do this in your response):
 For each skill in <available_skills>, state: [skill-name] - YES/NO - [reason]
 - cost-optimization: YES if task involves spawning subagents, NO otherwise
 - programming-skills:golang-dev-guidelines: YES if task involves writing, reviewing, or refactoring Go code, NO otherwise
+- karpathy-guidelines: YES always - apply these coding guidelines to every task
 
 Step 2 - ACTIVATE (do this immediately after Step 1):
 IF any skills are YES - Use Skill(skill-name) tool for EACH relevant skill NOW
@@ -27,9 +28,11 @@ Example of correct sequence:
 - research: NO - not a research task
 - svelte5-runes: YES - need reactive state
 - sveltekit-structure: YES - creating routes
+- karpathy-guidelines: YES always - apply these coding guidelines
 
 [Then IMMEDIATELY use Skill() tool:]
 > Skill(svelte5-runes)
 > Skill(sveltekit-structure)
+> Skill(karpathy-guidelines)
 
 [THEN and ONLY THEN start implementation]
