@@ -7,6 +7,25 @@ INSTRUCTION: BRANCH NAMING
 
 ---
 
+INSTRUCTION: BRANCH CREATION — ORDER OF OPERATIONS
+
+Before creating a feature branch, follow this order (unless the user explicitly
+asks for a different order or base):
+
+1. Determine the repo's default branch — do not assume `main`. Resolve it, e.g.
+   `git symbolic-ref refs/remotes/origin/HEAD --short` (falls back to
+   `git remote show origin | sed -n 's/.*HEAD branch: //p'`). It may be `main`,
+   `master`, or something else.
+2. Fetch the latest default branch from the remote before branching, e.g.
+   `git fetch origin <default-branch>`.
+3. Create the feature branch from the freshly fetched default branch, e.g.
+   `git checkout -b <type>/<project-name-description> origin/<default-branch>`.
+
+This guarantees new work starts from up-to-date remote state, not a stale local
+copy. Skip or reorder only when the user explicitly requests it.
+
+---
+
 INSTRUCTION: GIT COMMIT STYLE
 
 Keep commit messages short and focused on WHY the change is needed, not what was done.
