@@ -50,13 +50,8 @@ add_or_update_marketplace() {
 
 install_or_update_plugin() {
   local plugin="$1"
-  local installed_plugins="$CLAUDE_DIR/plugins/installed_plugins.json"
-  if [ -f "$installed_plugins" ] && jq -e ".plugins[\"$plugin\"]" "$installed_plugins" >/dev/null 2>&1; then
-    CLAUDE_CONFIG_DIR="$CLAUDE_DIR" claude plugin update "$plugin" \
-      || CLAUDE_CONFIG_DIR="$CLAUDE_DIR" claude plugin install "$plugin"
-  else
-    CLAUDE_CONFIG_DIR="$CLAUDE_DIR" claude plugin install "$plugin"
-  fi
+  CLAUDE_CONFIG_DIR="$CLAUDE_DIR" claude plugin update "$plugin" \
+    || CLAUDE_CONFIG_DIR="$CLAUDE_DIR" claude plugin install "$plugin"
 }
 
 install_plugins() {
@@ -114,20 +109,31 @@ configure_settings() {
 }
 
 install_ccstatusline() {
-  # Seed the ccstatusline widget config so the rich status line works on first run.
-  # Never overwrite an existing user widget config.
+  # Seed/refresh the ccstatusline widget config. Only overwrite if the user
+  # hasn't customized it since our last sync (hash-diff, same pattern as sync-rules.sh).
   local target_dir="${XDG_CONFIG_HOME:-$HOME/.config}/ccstatusline"
   local target="$target_dir/settings.json"
+  local hash_file="$target_dir/.settings.json.hash"
   local source="$SCRIPT_DIR/config/ccstatusline-settings.json"
 
-  if [ -f "$target" ]; then
-    echo "ccstatusline config already exists at $target (leaving as is)."
-  elif [ ! -f "$source" ]; then
+  if [ ! -f "$source" ]; then
     echo "WARNING: ccstatusline default config not found at $source; skipping seed."
   else
+    local new_hash
+    new_hash=$(shasum -a 256 "$source" | awk '{print $1}')
+    if [ -f "$target" ]; then
+      local cur_hash stored_hash
+      cur_hash=$(shasum -a 256 "$target" | awk '{print $1}')
+      stored_hash=$(cat "$hash_file" 2>/dev/null || echo "")
+      if [ "$cur_hash" != "$stored_hash" ]; then
+        echo "ccstatusline config at $target has local changes; leaving as is."
+        return
+      fi
+    fi
     mkdir -p "$target_dir"
     cp "$source" "$target"
-    echo "Seeded ccstatusline config at $target."
+    printf '%s' "$new_hash" > "$hash_file"
+    echo "Seeded/updated ccstatusline config at $target."
   fi
 
   # Wire Claude Code's settings.json to actually invoke ccstatusline.

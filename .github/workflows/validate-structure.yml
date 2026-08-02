@@ -1,0 +1,22 @@
+name: validate-structure
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - "plugins/**"
+      - ".claude-plugin/*.json"
+      - "lib/validate-structure.sh"
+
+jobs:
+  validate-structure:
+    runs-on: ubuntu-latest
+    env:
+      VALIDATE_BASE_REF: ${{ github.event.pull_request.base.sha }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Run validate-structure
+        run: bash lib/validate-structure.sh

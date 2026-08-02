@@ -1,7 +1,7 @@
 {
   "name": "usage-tracking",
   "description": "Logs skill invocations (PreToolUse and PostToolUse) with user, pwd, and skill name",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "author": {
     "name": "Company"
   }
