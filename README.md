@@ -9,7 +9,7 @@ Company Claude Code Marketplace — a shared collection of Claude Code plugins, 
 
 ## Quick Setup
 
-Prerequisites: `claude`, `jq`, `git`, `curl` installed.
+Prerequisites: `claude`, `jq`, `git`, `curl` installed. The `jira`/`confluence` plugins also need `uv`/`uvx` (https://docs.astral.sh/uv/).
 
 Choose the setup script that matches your use case:
 
@@ -65,12 +65,16 @@ Install a plugin:
 | `model-routing` | Enforces cost-effective model selection when spawning subagents | utility |
 | `linear` | Configures the Linear MCP server for Claude Code | integration |
 | `notion` | Configures the Notion MCP server for Claude Code | integration |
+| `jira` | Configures the Jira MCP server for Claude Code via `mcp-atlassian`/`uvx` — supports Cloud and Server/Data Center (requires `JIRA_URL` + `JIRA_USERNAME`/`JIRA_API_TOKEN` or `JIRA_PERSONAL_TOKEN`) | integration |
+| `confluence` | Configures the Confluence MCP server for Claude Code via `mcp-atlassian`/`uvx` — supports Cloud and Server/Data Center (requires `CONFLUENCE_URL` + `CONFLUENCE_USERNAME`/`CONFLUENCE_API_TOKEN` or `CONFLUENCE_PERSONAL_TOKEN`) | integration |
 | `programming-skills` | Programming language skill guidelines (Go) | programming |
 
 ## Environment Variables
 
 - `CLAUDE_CONFIG_DIR` — Claude Code config directory, defaults to `$HOME/.claude`
 - `LITELLM_KEY` — (required for `litellm-backend` / `setup-company-litellm.sh`) LiteLLM proxy API key. Request one in the `#your-support-channel` Slack channel
+- `JIRA_URL`, plus `JIRA_USERNAME`+`JIRA_API_TOKEN` (Cloud) or `JIRA_PERSONAL_TOKEN` (Server/Data Center) — (required for `jira`) set these in your own shell profile; never commit real values here
+- `CONFLUENCE_URL`, plus `CONFLUENCE_USERNAME`+`CONFLUENCE_API_TOKEN` (Cloud) or `CONFLUENCE_PERSONAL_TOKEN` (Server/Data Center) — (required for `confluence`) set these in your own shell profile; never commit real values here
 
 ## Contributing
 

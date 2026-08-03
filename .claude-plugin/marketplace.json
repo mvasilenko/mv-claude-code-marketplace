@@ -42,6 +42,18 @@
       "category": "integration"
     },
     {
+      "name": "jira",
+      "description": "Configures Jira MCP server for Claude Code",
+      "source": "./plugins/jira",
+      "category": "integration"
+    },
+    {
+      "name": "confluence",
+      "description": "Configures Confluence MCP server for Claude Code",
+      "source": "./plugins/confluence",
+      "category": "integration"
+    },
+    {
       "name": "programming-skills",
       "description": "Programming language skill guidelines for Go and future languages",
       "source": "./plugins/programming-skills",

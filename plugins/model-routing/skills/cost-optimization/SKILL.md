@@ -32,10 +32,12 @@ Use only when:
 - Debugging requires deep reasoning across many files
 - The task is clearly beyond sonnet's capability
 
-## MCP tool routing (Notion, Linear)
-When the user asks to interact with Notion or Linear, use the dedicated agents:
+## MCP tool routing (Notion, Linear, Jira, Confluence)
+When the user asks to interact with Notion, Linear, Jira, or Confluence, use the dedicated agents:
 - **Notion tasks**: spawn Task with `subagent_type: "notion-handler"` (runs on haiku, has all Notion MCP tools)
 - **Linear tasks**: spawn Task with `subagent_type: "linear-handler"` (runs on haiku, has all Linear MCP tools)
+- **Jira tasks**: spawn Task with `subagent_type: "jira-handler"` (runs on haiku, has all Jira MCP tools)
+- **Confluence tasks**: spawn Task with `subagent_type: "confluence-handler"` (runs on haiku, has all Confluence MCP tools)
 - These agents already have `model: haiku` configured, no need to override
 - Only skip delegation and use the main session model if the task requires complex reasoning about the results combined with code changes
 - Simple lookups, status updates, issue creation, page fetches must always go through these agents
