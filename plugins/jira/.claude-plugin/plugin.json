@@ -1,0 +1,8 @@
+{
+  "name": "jira",
+  "description": "Configures Jira MCP server for Claude Code (Cloud and Server/Data Center)",
+  "version": "1.0.0",
+  "author": {
+    "name": "Company"
+  }
+}

@@ -32,7 +32,8 @@ If the work is purely search, prefer `subagent_type: "Explore"` over
 ## Other subagent types
 
 - `Plan` — use `sonnet` (multi-step reasoning, not simple search).
-- MCP handler agents (`notion-handler`, `linear-handler`) have `model: haiku`
-  baked into their definition; you do not need to override.
+- MCP handler agents (`notion-handler`, `linear-handler`, `jira-handler`,
+  `confluence-handler`) have `model: haiku` baked into their definition; you
+  do not need to override.
 - `opus` is only correct for architectural decisions across multiple systems,
   deep multi-file debugging, or work clearly beyond sonnet's capability.
