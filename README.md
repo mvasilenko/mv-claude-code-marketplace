@@ -68,6 +68,7 @@ Install a plugin:
 | `jira` | Configures the Jira MCP server for Claude Code via `mcp-atlassian`/`uvx` — supports Cloud and Server/Data Center (requires `JIRA_URL` + `JIRA_USERNAME`/`JIRA_API_TOKEN` or `JIRA_PERSONAL_TOKEN`) | integration |
 | `confluence` | Configures the Confluence MCP server for Claude Code via `mcp-atlassian`/`uvx` — supports Cloud and Server/Data Center (requires `CONFLUENCE_URL` + `CONFLUENCE_USERNAME`/`CONFLUENCE_API_TOKEN` or `CONFLUENCE_PERSONAL_TOKEN`) | integration |
 | `programming-skills` | Programming language skill guidelines (Go) | programming |
+| `i-have-adhd` | Shapes output for an ADHD reader — next action first, numbered steps, no preamble or tangents. Vendored from [ayghri/i-have-adhd](https://github.com/ayghri/i-have-adhd) (MIT). Opt-in install; once installed, the `rules-management` skill-eval rule activates it on every task | workflow |
 
 ## Environment Variables
 

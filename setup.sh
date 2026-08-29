@@ -13,7 +13,7 @@ backup_if_needed
 add_or_update_marketplace "$MARKETPLACE_NAME" "$MARKETPLACE_REPO"
 install_plugins rules-management hello model-routing programming-skills usage-tracking
 # Optional integrations (install manually if needed):
-# install_plugins notion linear litellm-backend
+# install_plugins notion linear litellm-backend i-have-adhd
 
 add_or_update_marketplace "$SUPERPOWERS_MARKETPLACE" "$SUPERPOWERS_REPO"
 install_or_update_plugin "superpowers@$SUPERPOWERS_MARKETPLACE"

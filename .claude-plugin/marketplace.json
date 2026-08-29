@@ -70,6 +70,12 @@
       "description": "Behavioral guidelines to reduce common LLM coding mistakes: Think Before Coding, Simplicity First, Surgical Changes, Goal-Driven Execution",
       "source": "./plugins/karpathy-guidelines",
       "category": "workflow"
+    },
+    {
+      "name": "i-have-adhd",
+      "description": "Shape Claude Code output for an ADHD reader: lead with the next action, number steps, suppress tangents, restate state, make wins visible",
+      "source": "./plugins/i-have-adhd",
+      "category": "workflow"
     }
   ]
 }
