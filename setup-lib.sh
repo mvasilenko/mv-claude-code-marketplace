@@ -106,6 +106,11 @@ configure_settings() {
   jq '.env.CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC = "1"' \
     "$settings" > "$settings.tmp" && mv "$settings.tmp" "$settings"
   echo "Configured settings.json with base env vars."
+
+  # i-have-adhd's skill sets disable-model-invocation, so this flag is the only way
+  # to keep it always-on. No-op until the plugin is installed.
+  touch "$CLAUDE_DIR/.i-have-adhd-always"
+  echo "Enabled i-have-adhd always-on (delete $CLAUDE_DIR/.i-have-adhd-always to opt out)."
 }
 
 install_ccstatusline() {

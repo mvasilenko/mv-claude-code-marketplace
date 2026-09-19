@@ -69,6 +69,37 @@ Install a plugin:
 | `confluence` | Configures the Confluence MCP server for Claude Code via `mcp-atlassian`/`uvx` — supports Cloud and Server/Data Center (requires `CONFLUENCE_URL` + `CONFLUENCE_USERNAME`/`CONFLUENCE_API_TOKEN` or `CONFLUENCE_PERSONAL_TOKEN`) | integration |
 | `programming-skills` | Programming language skill guidelines (Go) | programming |
 
+## External Plugins
+
+[`ponytail`](https://github.com/DietrichGebert/ponytail) is not part of this marketplace — it ships its own marketplace. The `skill-eval` rule runs `/ponytail:ponytail-review` after any code change, so install it:
+
+```
+/plugin marketplace add DietrichGebert/ponytail
+```
+```
+/plugin install ponytail@ponytail
+```
+
+[`caveman`](https://github.com/JuliusBrussee/caveman) also ships its own marketplace. The `skill-eval` rule keeps it active on every task, so install it:
+
+```
+/plugin marketplace add JuliusBrussee/caveman
+```
+```
+/plugin install caveman@caveman
+```
+
+[`i-have-adhd`](https://github.com/ayghri/i-have-adhd) also ships its own marketplace. Its skill sets `disable-model-invocation: true`, so Claude can never activate it — instead the plugin's own SessionStart hook injects the ruleset when `~/.claude/.i-have-adhd-always` exists, and `setup.sh` creates that flag. Delete the flag to opt out.
+
+```
+/plugin marketplace add ayghri/i-have-adhd
+```
+```
+/plugin install i-have-adhd@i-have-adhd
+```
+
+Send each command as a separate prompt.
+
 ## Environment Variables
 
 - `CLAUDE_CONFIG_DIR` — Claude Code config directory, defaults to `$HOME/.claude`
