@@ -22,7 +22,7 @@ for f in "$SRC"/*.md; do
   if [ -f "$dst" ]; then
     cur_hash=$(shasum -a 256 "$dst" | awk '{print $1}')
     stored=$(cat "$hash_f" 2>/dev/null || echo "")
-    [ "$cur_hash" != "$stored" ] && continue
+    [ "$cur_hash" != "$stored" ] && { echo "sync-rules: $dst_name modified locally, skipping (edit $SRC/$name instead)"; continue; }
   fi
 
   cp "$f" "$dst"

@@ -62,6 +62,12 @@ Keep PR descriptions very brief — 1-3 bullet points maximum.
 No verbose "Root cause" sections, no code blocks, no extended explanations.
 If context is needed, one short sentence is enough.
 
+Before opening or updating a PR, run the description and the diff's code
+comments through `/ponytail:ponytail-review` and apply the cuts. Rationale that
+already lives in a code comment is not restated in the description — "see the
+file comment" means that line is redundant, delete it. One bullet per fact:
+if two bullets share a subject, they are one bullet.
+
 ---
 
 INSTRUCTION: NO SENSITIVE OR LOCAL-SPECIFIC CONTENT IN COMMITTED FILES
