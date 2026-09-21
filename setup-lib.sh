@@ -114,8 +114,10 @@ configure_settings() {
 }
 
 install_ccstatusline() {
-  # Seed/refresh the ccstatusline widget config. Only overwrite if the user
-  # hasn't customized it since our last sync (hash-diff, same pattern as sync-rules.sh).
+  # Seed/refresh the ccstatusline widget config. The recorded hash is of the
+  # *source* we last installed, not the target: ccstatusline rewrites its own
+  # settings.json on schema migrations, so hashing the target flags untouched
+  # configs as customized and the sync never runs again.
   local target_dir="${XDG_CONFIG_HOME:-$HOME/.config}/ccstatusline"
   local target="$target_dir/settings.json"
   local hash_file="$target_dir/.settings.json.hash"
@@ -124,21 +126,23 @@ install_ccstatusline() {
   if [ ! -f "$source" ]; then
     echo "WARNING: ccstatusline default config not found at $source; skipping seed."
   else
-    local new_hash
+    local new_hash stored_hash
     new_hash=$(shasum -a 256 "$source" | awk '{print $1}')
-    if [ -f "$target" ]; then
-      local cur_hash stored_hash
-      cur_hash=$(shasum -a 256 "$target" | awk '{print $1}')
-      stored_hash=$(cat "$hash_file" 2>/dev/null || echo "")
-      if [ "$cur_hash" != "$stored_hash" ]; then
-        echo "ccstatusline config at $target has local changes; leaving as is."
-        return
+    stored_hash=$(cat "$hash_file" 2>/dev/null || echo "")
+    if [ "$stored_hash" = "$new_hash" ]; then
+      echo "ccstatusline config at $target is current; leaving as is."
+    else
+      mkdir -p "$target_dir"
+      if [ -f "$target" ]; then
+        local backup
+        backup="$target.bak-$(date +%Y%m%d-%H%M%S)"
+        cp "$target" "$backup"
+        echo "Backed up previous ccstatusline config to $backup"
       fi
+      cp "$source" "$target"
+      printf '%s' "$new_hash" > "$hash_file"
+      echo "Seeded/updated ccstatusline config at $target."
     fi
-    mkdir -p "$target_dir"
-    cp "$source" "$target"
-    printf '%s' "$new_hash" > "$hash_file"
-    echo "Seeded/updated ccstatusline config at $target."
   fi
 
   # Wire Claude Code's settings.json to actually invoke ccstatusline.
