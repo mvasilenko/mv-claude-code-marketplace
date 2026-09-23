@@ -1,20 +1,24 @@
 {
-  "version": 3,
+  "version": 4,
   "lines": [
     [
-      { "id": "1", "type": "model", "color": "cyan", "bold": true },
-      { "id": "5", "type": "git-branch", "color": "magenta" }
+      { "id": "12", "type": "custom-command", "commandPath": "f=\"$HOME/.cache/ccstatusline/skills/skills-$(jq -r .session_id).jsonl\"; [ -f \"$f\" ] && jq -rs '\"Skills: \" + ([.[].skill | split(\":\") | last | .[0:10]] | unique | join(\", \"))' \"$f\"", "color": "brightBlack" },
+      { "id": "1", "type": "model", "color": "cyan", "bold": true }
     ],
     [
-      { "id": "6", "type": "context-bar", "color": "green" },
       { "id": "9", "type": "session-usage", "color": "blue" },
-      { "id": "11", "type": "weekly-usage", "color": "blue" }
-    ],
-    [
-      { "id": "12", "type": "skills", "color": "brightBlack" }
+      { "id": "11", "type": "weekly-usage", "color": "blue" },
+      { "id": "20", "type": "custom-text", "customText": "Context: ", "color": "green", "merge": "no-padding" },
+      { "id": "21", "type": "context-length", "rawValue": true, "numberFormat": { "decimals": 0 }, "color": "green", "merge": "no-padding" },
+      { "id": "22", "type": "custom-text", "customText": "/", "color": "green", "merge": "no-padding" },
+      { "id": "23", "type": "context-window", "rawValue": true, "numberFormat": { "decimals": 1 }, "color": "green", "merge": "no-padding" },
+      { "id": "24", "type": "custom-text", "customText": " (", "color": "green", "merge": "no-padding" },
+      { "id": "25", "type": "context-percentage", "rawValue": true, "numberFormat": { "decimals": 0 }, "color": "green", "merge": "no-padding" },
+      { "id": "26", "type": "custom-text", "customText": ")", "color": "green" },
+      { "id": "5", "type": "git-branch", "color": "magenta" }
     ]
   ],
-  "flexMode": "full-minus-40",
+  "flexMode": "full",
   "defaultSeparator": " | ",
   "compactThreshold": 60,
   "colorLevel": 2,
@@ -22,7 +26,7 @@
   "globalBold": false,
   "powerline": {
     "enabled": false,
-    "separators": ["\uE0B0"],
+    "separators": [""],
     "separatorInvertBackground": [false],
     "startCaps": [],
     "endCaps": [],
