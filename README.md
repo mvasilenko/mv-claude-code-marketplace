@@ -68,8 +68,11 @@ Install a plugin:
 | `jira` | Configures the Jira MCP server for Claude Code via `mcp-atlassian`/`uvx` — supports Cloud and Server/Data Center (requires `JIRA_URL` + `JIRA_USERNAME`/`JIRA_API_TOKEN` or `JIRA_PERSONAL_TOKEN`) | integration |
 | `confluence` | Configures the Confluence MCP server for Claude Code via `mcp-atlassian`/`uvx` — supports Cloud and Server/Data Center (requires `CONFLUENCE_URL` + `CONFLUENCE_USERNAME`/`CONFLUENCE_API_TOKEN` or `CONFLUENCE_PERSONAL_TOKEN`) | integration |
 | `programming-skills` | Programming language skill guidelines (Go) | programming |
+| `karpathy-guidelines` | Behavioral guidelines to reduce common LLM coding mistakes; always-on via the `skill-eval` rule | workflow |
 
 ## External Plugins
+
+`setup.sh` and `setup-litellm.sh` already add the marketplaces and install `ponytail`, `caveman` and `i-have-adhd`. The commands below are for manual installs only.
 
 [`ponytail`](https://github.com/DietrichGebert/ponytail) is not part of this marketplace — it ships its own marketplace. The `skill-eval` rule runs `/ponytail:ponytail-review` after any code change, so install it:
 
