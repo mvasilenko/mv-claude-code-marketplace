@@ -12,12 +12,17 @@ check_litellm_key
 backup_if_needed
 
 add_or_update_marketplace "$MARKETPLACE_NAME" "$MARKETPLACE_REPO"
-install_plugins rules-management hello litellm-backend model-routing programming-skills usage-tracking
+install_plugins rules-management hello litellm-backend model-routing programming-skills usage-tracking karpathy-guidelines
 # Optional integrations (install manually if needed):
 # install_plugins notion linear
 
 add_or_update_marketplace "$SUPERPOWERS_MARKETPLACE" "$SUPERPOWERS_REPO"
 install_or_update_plugin "superpowers@$SUPERPOWERS_MARKETPLACE"
+
+# Required by the skill-eval rule (always-on skills)
+install_external_plugin DietrichGebert/ponytail ponytail ponytail
+install_external_plugin JuliusBrussee/caveman caveman caveman
+install_external_plugin ayghri/i-have-adhd i-have-adhd i-have-adhd
 
 enable_auto_update
 verify_litellm_proxy

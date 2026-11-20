@@ -54,6 +54,12 @@ install_or_update_plugin() {
     || CLAUDE_CONFIG_DIR="$CLAUDE_DIR" claude plugin install "$plugin"
 }
 
+# External plugins ship their own marketplace: install_external_plugin <repo> <marketplace> <plugin>
+install_external_plugin() {
+  add_or_update_marketplace "$2" "$1"
+  install_or_update_plugin "$3@$2"
+}
+
 install_plugins() {
   for plugin in "$@"; do
     install_or_update_plugin "$plugin@$MARKETPLACE_NAME"
