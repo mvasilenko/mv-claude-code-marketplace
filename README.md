@@ -15,16 +15,19 @@ Choose the setup script that matches your use case:
 
 | Script | Config dir | Use case |
 |--------|------------|----------|
-| `setup.sh` | `~/.claude` | Default — personal and Company team accounts sharing one context |
-| `setup-company-litellm.sh` | `~/.claude-litellm` | Company LiteLLM proxy (requires `LITELLM_KEY`) |
+| `setup.sh` | `~/.claude` | Default — Company team account |
+| `setup.sh` (with `CLAUDE_CONFIG_DIR=~/.claude-personal`) | `~/.claude-personal` | Separate personal Anthropic subscription |
+| `setup-litellm.sh` | `~/.claude-litellm` | Company LiteLLM proxy (requires `LITELLM_KEY`) |
 
 ```
 git clone git@github.com:mvasilenko/mv-claude-code-marketplace.git
 cd mv-claude-code-marketplace
-./setup.sh   # or ./setup-company-litellm.sh
+./setup.sh                                      # company profile, ~/.claude
+CLAUDE_CONFIG_DIR=~/.claude-personal ./setup.sh # personal profile, ~/.claude-personal
+# or ./setup-litellm.sh
 ```
 
-Each script installs all relevant plugins from this marketplace plus the [`superpowers`](https://github.com/anthropics/claude-plugins-official) plugin, enables auto-update for both marketplaces, and sets up shell aliases.
+Each script installs all relevant plugins from this marketplace plus the [`superpowers`](https://github.com/anthropics/claude-plugins-official) plugin, enables auto-update for both marketplaces, and sets up shell aliases. Each profile (config dir) gets its own ccstatusline widget config, so running the statusline under different aliases never clobbers another profile's config.
 
 ## Shell Aliases
 
@@ -32,8 +35,8 @@ Both setup scripts add the following aliases to your shell profile (`~/.zshrc`, 
 
 | Alias | Config dir | Description |
 |-------|------------|-------------|
-| `claude` | `~/.claude` | Default shared config |
-| `claudel` | `~/.claude-litellm` | LiteLLM proxy config |
+| `claude` | `~/.claude` | Company team config |
+| `claudep` | `~/.claude-personal` | Personal Anthropic subscription config |
 
 Each alias unsets `ANTHROPIC_AUTH_TOKEN` and `ANTHROPIC_BASE_URL` before launching to avoid leaking settings across configs.
 

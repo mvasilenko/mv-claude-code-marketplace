@@ -124,7 +124,11 @@ install_ccstatusline() {
   # *source* we last installed, not the target: ccstatusline rewrites its own
   # settings.json on schema migrations, so hashing the target flags untouched
   # configs as customized and the sync never runs again.
-  local target_dir="${XDG_CONFIG_HOME:-$HOME/.config}/ccstatusline"
+  #
+  # Scoped under CLAUDE_DIR (not the shared ~/.config) so each profile
+  # (company ~/.claude, personal ~/.claude-personal, ...) gets its own
+  # ccstatusline config instead of clobbering a shared one.
+  local target_dir="$CLAUDE_DIR/ccstatusline"
   local target="$target_dir/settings.json"
   local hash_file="$target_dir/.settings.json.hash"
   local source="$SCRIPT_DIR/config/ccstatusline-settings.json"
@@ -151,14 +155,14 @@ install_ccstatusline() {
     fi
   fi
 
-  # Wire Claude Code's settings.json to actually invoke ccstatusline.
-  # Without this, the seeded widget config is never read.
+  # Wire Claude Code's settings.json to actually invoke ccstatusline, pointed
+  # at this profile's own config dir via XDG_CONFIG_HOME (see target_dir above).
   local settings="$CLAUDE_DIR/settings.json"
   if [ ! -f "$settings" ]; then
     echo "{}" > "$settings"
   fi
-  jq '
-    .statusLine = {"type": "command", "command": "npx -y ccstatusline@latest"}
+  jq --arg cmd "XDG_CONFIG_HOME=\"$CLAUDE_DIR\" npx -y ccstatusline@latest" '
+    .statusLine = {"type": "command", "command": $cmd}
     | del(.enabledPlugins["model-display@mv-claude-code-marketplace"])
   ' "$settings" > "$settings.tmp" && mv "$settings.tmp" "$settings"
   echo "Wired statusLine to ccstatusline in $settings."
@@ -184,6 +188,7 @@ setup_shell_aliases() {
     echo ""
     echo "# Claude Code config aliases"
     echo "alias claude='unset ANTHROPIC_AUTH_TOKEN; unset ANTHROPIC_BASE_URL; CLAUDE_CONFIG_DIR=~/.claude command claude'"
+    echo "alias claudep='unset ANTHROPIC_AUTH_TOKEN; unset ANTHROPIC_BASE_URL; CLAUDE_CONFIG_DIR=~/.claude-personal command claude'"
     echo "alias claudel='unset ANTHROPIC_AUTH_TOKEN; unset ANTHROPIC_BASE_URL; CLAUDE_CONFIG_DIR=~/.claude-litellm command claude'"
   } >> "$profile"
 
