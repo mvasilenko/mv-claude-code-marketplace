@@ -2,10 +2,10 @@
 # Common functions for setup scripts. Set CLAUDE_DIR before sourcing this file.
 
 MARKETPLACE_NAME="mv-claude-code-marketplace"
-# shellcheck disable=SC2034  # used by sourcing scripts (setup.sh, setup-litellm.sh)
+# shellcheck disable=SC2034  # used by sourcing scripts (setup.sh)
 MARKETPLACE_REPO="mvasilenko/mv-claude-code-marketplace"
 SUPERPOWERS_MARKETPLACE="claude-plugins-official"
-# shellcheck disable=SC2034  # used by sourcing scripts (setup.sh, setup-litellm.sh)
+# shellcheck disable=SC2034  # used by sourcing scripts (setup.sh)
 SUPERPOWERS_REPO="anthropics/claude-plugins-official"
 
 check_prerequisites() {
@@ -72,26 +72,6 @@ enable_auto_update() {
     jq ".[\"$MARKETPLACE_NAME\"].autoUpdate = true | .[\"$SUPERPOWERS_MARKETPLACE\"].autoUpdate = true" \
       "$known_marketplaces" > "$known_marketplaces.tmp" \
       && mv "$known_marketplaces.tmp" "$known_marketplaces"
-  fi
-}
-
-check_litellm_key() {
-  if [ -z "${LITELLM_KEY:-}" ]; then
-    echo "ERROR: LITELLM_KEY env var is not set."
-    echo "Get your key at #your-support-channel and add to your shell profile:"
-    echo "  export LITELLM_KEY=\"your-key-here\""
-    exit 1
-  fi
-}
-
-verify_litellm_proxy() {
-  echo "Verifying LiteLLM proxy connection..."
-  local http_code
-  http_code=$(curl -s -o /dev/null -w "%{http_code}" -H "Authorization: Bearer $LITELLM_KEY" https://litellm.company.example.com/health 2>/dev/null || echo "000")
-  if [ "$http_code" = "200" ]; then
-    echo "LiteLLM proxy is reachable."
-  else
-    echo "WARNING: LiteLLM proxy check failed (HTTP $http_code). Verify LITELLM_KEY is correct."
   fi
 }
 
@@ -189,7 +169,6 @@ setup_shell_aliases() {
     echo "# Claude Code config aliases"
     echo "alias claude='unset ANTHROPIC_AUTH_TOKEN; unset ANTHROPIC_BASE_URL; CLAUDE_CONFIG_DIR=~/.claude command claude'"
     echo "alias claudep='unset ANTHROPIC_AUTH_TOKEN; unset ANTHROPIC_BASE_URL; CLAUDE_CONFIG_DIR=~/.claude-personal command claude'"
-    echo "alias claudel='unset ANTHROPIC_AUTH_TOKEN; unset ANTHROPIC_BASE_URL; CLAUDE_CONFIG_DIR=~/.claude-litellm command claude'"
   } >> "$profile"
 
   echo "Aliases added to $profile. Run: source $profile"
