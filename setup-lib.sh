@@ -2,10 +2,10 @@
 # Common functions for setup scripts. Set CLAUDE_DIR before sourcing this file.
 
 MARKETPLACE_NAME="mv-claude-code-marketplace"
-# shellcheck disable=SC2034  # used by sourcing scripts (setup.sh, setup-litellm.sh)
+# shellcheck disable=SC2034  # used by sourcing scripts (setup.sh)
 MARKETPLACE_REPO="mvasilenko/mv-claude-code-marketplace"
 SUPERPOWERS_MARKETPLACE="claude-plugins-official"
-# shellcheck disable=SC2034  # used by sourcing scripts (setup.sh, setup-litellm.sh)
+# shellcheck disable=SC2034  # used by sourcing scripts (setup.sh)
 SUPERPOWERS_REPO="anthropics/claude-plugins-official"
 
 check_prerequisites() {
@@ -75,26 +75,6 @@ enable_auto_update() {
   fi
 }
 
-check_litellm_key() {
-  if [ -z "${LITELLM_KEY:-}" ]; then
-    echo "ERROR: LITELLM_KEY env var is not set."
-    echo "Get your key at #your-support-channel and add to your shell profile:"
-    echo "  export LITELLM_KEY=\"your-key-here\""
-    exit 1
-  fi
-}
-
-verify_litellm_proxy() {
-  echo "Verifying LiteLLM proxy connection..."
-  local http_code
-  http_code=$(curl -s -o /dev/null -w "%{http_code}" -H "Authorization: Bearer $LITELLM_KEY" https://litellm.company.example.com/health 2>/dev/null || echo "000")
-  if [ "$http_code" = "200" ]; then
-    echo "LiteLLM proxy is reachable."
-  else
-    echo "WARNING: LiteLLM proxy check failed (HTTP $http_code). Verify LITELLM_KEY is correct."
-  fi
-}
-
 clean_litellm_settings() {
   local settings="$CLAUDE_DIR/settings.json"
   if [ -f "$settings" ]; then
@@ -124,7 +104,11 @@ install_ccstatusline() {
   # *source* we last installed, not the target: ccstatusline rewrites its own
   # settings.json on schema migrations, so hashing the target flags untouched
   # configs as customized and the sync never runs again.
-  local target_dir="${XDG_CONFIG_HOME:-$HOME/.config}/ccstatusline"
+  #
+  # Scoped under CLAUDE_DIR (not the shared ~/.config) so each profile
+  # (company ~/.claude, personal ~/.claude-personal, ...) gets its own
+  # ccstatusline config instead of clobbering a shared one.
+  local target_dir="$CLAUDE_DIR/ccstatusline"
   local target="$target_dir/settings.json"
   local hash_file="$target_dir/.settings.json.hash"
   local source="$SCRIPT_DIR/config/ccstatusline-settings.json"
@@ -151,14 +135,14 @@ install_ccstatusline() {
     fi
   fi
 
-  # Wire Claude Code's settings.json to actually invoke ccstatusline.
-  # Without this, the seeded widget config is never read.
+  # Wire Claude Code's settings.json to actually invoke ccstatusline, pointed
+  # at this profile's own config dir via XDG_CONFIG_HOME (see target_dir above).
   local settings="$CLAUDE_DIR/settings.json"
   if [ ! -f "$settings" ]; then
     echo "{}" > "$settings"
   fi
-  jq '
-    .statusLine = {"type": "command", "command": "npx -y ccstatusline@latest"}
+  jq --arg cmd "XDG_CONFIG_HOME=\"$CLAUDE_DIR\" npx -y ccstatusline@latest" '
+    .statusLine = {"type": "command", "command": $cmd}
     | del(.enabledPlugins["model-display@mv-claude-code-marketplace"])
   ' "$settings" > "$settings.tmp" && mv "$settings.tmp" "$settings"
   echo "Wired statusLine to ccstatusline in $settings."
@@ -184,7 +168,7 @@ setup_shell_aliases() {
     echo ""
     echo "# Claude Code config aliases"
     echo "alias claude='unset ANTHROPIC_AUTH_TOKEN; unset ANTHROPIC_BASE_URL; CLAUDE_CONFIG_DIR=~/.claude command claude'"
-    echo "alias claudel='unset ANTHROPIC_AUTH_TOKEN; unset ANTHROPIC_BASE_URL; CLAUDE_CONFIG_DIR=~/.claude-litellm command claude'"
+    echo "alias claudep='unset ANTHROPIC_AUTH_TOKEN; unset ANTHROPIC_BASE_URL; CLAUDE_CONFIG_DIR=~/.claude-personal command claude'"
   } >> "$profile"
 
   echo "Aliases added to $profile. Run: source $profile"

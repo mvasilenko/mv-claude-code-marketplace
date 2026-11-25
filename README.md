@@ -15,25 +15,26 @@ Choose the setup script that matches your use case:
 
 | Script | Config dir | Use case |
 |--------|------------|----------|
-| `setup.sh` | `~/.claude` | Default — personal and Company team accounts sharing one context |
-| `setup-company-litellm.sh` | `~/.claude-litellm` | Company LiteLLM proxy (requires `LITELLM_KEY`) |
+| `setup.sh` | `~/.claude` | Default — Company team account |
+| `setup.sh` (with `CLAUDE_CONFIG_DIR=~/.claude-personal`) | `~/.claude-personal` | Separate personal Anthropic subscription |
 
 ```
 git clone git@github.com:mvasilenko/mv-claude-code-marketplace.git
 cd mv-claude-code-marketplace
-./setup.sh   # or ./setup-company-litellm.sh
+./setup.sh                                      # company profile, ~/.claude
+CLAUDE_CONFIG_DIR=~/.claude-personal ./setup.sh # personal profile, ~/.claude-personal
 ```
 
-Each script installs all relevant plugins from this marketplace plus the [`superpowers`](https://github.com/anthropics/claude-plugins-official) plugin, enables auto-update for both marketplaces, and sets up shell aliases.
+`setup.sh` installs all relevant plugins from this marketplace plus the [`superpowers`](https://github.com/anthropics/claude-plugins-official) plugin, enables auto-update for both marketplaces, and sets up shell aliases. Each profile (config dir) gets its own ccstatusline widget config, so running the statusline under different aliases never clobbers another profile's config.
 
 ## Shell Aliases
 
-Both setup scripts add the following aliases to your shell profile (`~/.zshrc`, `~/.bashrc`, or `~/.profile`):
+Setup adds the following aliases to your shell profile (`~/.zshrc`, `~/.bashrc`, or `~/.profile`):
 
 | Alias | Config dir | Description |
 |-------|------------|-------------|
-| `claude` | `~/.claude` | Default shared config |
-| `claudel` | `~/.claude-litellm` | LiteLLM proxy config |
+| `claude` | `~/.claude` | Company team config |
+| `claudep` | `~/.claude-personal` | Personal Anthropic subscription config |
 
 Each alias unsets `ANTHROPIC_AUTH_TOKEN` and `ANTHROPIC_BASE_URL` before launching to avoid leaking settings across configs.
 
@@ -72,7 +73,7 @@ Install a plugin:
 
 ## External Plugins
 
-`setup.sh` and `setup-litellm.sh` already add the marketplaces and install `ponytail`, `caveman` and `i-have-adhd`. The commands below are for manual installs only.
+`setup.sh` already adds the marketplaces and installs `ponytail`, `caveman` and `i-have-adhd`. The commands below are for manual installs only.
 
 [`ponytail`](https://github.com/DietrichGebert/ponytail) is not part of this marketplace — it ships its own marketplace. The `skill-eval` rule runs `/ponytail:ponytail-review` after any code change, so install it:
 
@@ -106,7 +107,7 @@ Send each command as a separate prompt.
 ## Environment Variables
 
 - `CLAUDE_CONFIG_DIR` — Claude Code config directory, defaults to `$HOME/.claude`
-- `LITELLM_KEY` — (required for `litellm-backend` / `setup-company-litellm.sh`) LiteLLM proxy API key. Request one in the `#your-support-channel` Slack channel
+- `LITELLM_KEY` — (required for the `litellm-backend` plugin, manual install only) LiteLLM proxy API key. Request one in the `#your-support-channel` Slack channel
 - `JIRA_URL`, plus `JIRA_USERNAME`+`JIRA_API_TOKEN` (Cloud) or `JIRA_PERSONAL_TOKEN` (Server/Data Center) — (required for `jira`) set these in your own shell profile; never commit real values here
 - `CONFLUENCE_URL`, plus `CONFLUENCE_USERNAME`+`CONFLUENCE_API_TOKEN` (Cloud) or `CONFLUENCE_PERSONAL_TOKEN` (Server/Data Center) — (required for `confluence`) set these in your own shell profile; never commit real values here
 
